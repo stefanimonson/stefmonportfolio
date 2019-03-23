@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <!--discovery.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Discovery Tool</title>
+  
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="../styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="../togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> <!--Google Prettify Code-->
+    <link rel="icon" href="../favicon.ico"> <!-- Browser icon -->
+	
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../professional.html">Experience</a></li>
+      <li><a href="../educational.html">Education</a></li>
+      <li><a class="active" href="../showcase.html">Showcase</a></li>
+      <li><a href="../info.html">Info</a></li>
+    </ul>
+	
+    <!-- padded div to house page content -->
+    <div class="padded">
+    	
+    <!--Project Title -->
+    <h2>DISCOVERY TOOL FOR LINUX</h2>
+    
+    <!--Screenshot -->
+    <img src="../images/screenshots/discovery.png" alt="Discovery Tool for Linux" style="height:400px; display: inline-block;" />
+
+    <!--Description -->
+    <p>This project was created for use by PCs for People. Its primary function was to query the stats on the computer it is running on and report them back to the main database. Unfortunately as this code is owned and sold PCs for People, I cannot fully upload the source code. The following classes has been cropped to exclude any private PCs for People materials.</p>
+	
+    <!--Code Samples -->
+    <button class="collapsible">MainFrame.java</button>
+    <div class="content">
+      <pre class="prettyprint linenums">package GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
+/**
+ * This class holds the Main Frame of the Discovery Graphical User InterfaceAddress
+ *
+ * @author Stefani Monson
+ */
+public class MainFrame extends JFrame {
+private InfoPanel infoPanel;
+    public MainFrame() {
+        super("Discovery");
+
+        infoPanel = new InfoPanel();
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(750, 400));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        add(infoPanel);
+    }
+}      </pre>
+    </div>
+
+    <button class="collapsible">InfoPanel.java</button>
+    <div class="content">
+      <pre class="prettyprint linenums">
+package GUI;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import model.ComputerStats;
+import controller.GetComputerstats;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+/**
+ * This class holds the Panel that displays the computer stats
+ * @author Stefani Monson
+ */
+public class InfoPanel extends JPanel {
+    private final JLabel lblProcLabel;
+    private final JLabel lblCPUSpeedLabel;
+    private final JLabel lblDisplayLabel;
+    private final JLabel lblAudioLabel;
+    private JLabel lblProc;
+    private JLabel lblCPUSpeed;
+    private JLabel lblDisplay;
+    private JLabel lblAudio;
+    private ComputerStats stats;
+    
+    public InfoPanel(){
+        lblProcLabel = new JLabel("Processor: ");
+        lblCPUSpeedLabel = new JLabel("CPU Speed: ");
+        lblDisplayLabel = new JLabel("Display Adapter: ");
+        lblAudioLabel = new JLabel("Audio Controller: ");
+        loadStats();
+        
+        setLayout(new GridBagLayout());
+        GridBagConstraints gc = new GridBagConstraints();
+        
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.anchor= GridBagConstraints.FIRST_LINE_START;
+        
+        add(lblProcLabel, gc);
+        gc.gridx++;
+        add(lblProc, gc);
+        
+        gc.gridx = 0;
+        gc.gridy++;
+        add(lblCPUSpeedLabel, gc);
+        gc.gridx++;
+        add(lblCPUSpeed, gc);
+       
+    }
+    
+    private void loadStats(){
+        GetComputerstats get = new GetComputerstats();
+        stats = get.load();
+        lblProc = new JLabel(stats.getProcessor());
+        lblCPUSpeed = new JLabel(stats.getCpuspeed());
+   
+    }   </pre>
+    </div> <!--class="contenet"-->
+
+    <button class="collapsible">GetComputerstats.java</button>
+    <div class="content">
+      <pre class="prettyprint linenums">
+package controller;
+
+import java.io.File;
+import model.ComputerStats;
+
+/**
+ * This class runs various linux commands to gather hardware information from the computer.
+ *
+ * @author Stefani Monson
+ */
+public class GetComputerstats {
+
+    private ComputerStats stats;
+    private String singlecommand;
+    private String[] command;
+    private CommandReader executeCommand;
+    private FileReader filename;
+    private File file;
+    
+
+    public GetComputerstats() {
+        stats = new ComputerStats();
+    }
+    public ComputerStats load(){
+        
+        try {
+            filename = new FileReader("/proc/cpuinfo");
+            stats.setProcessor(filename.printLinesWhichContain("model name").substring(13).trim());
+            
+        } catch (Exception e){
+            stats.setProcessor("N/A");
+        }
+        
+        try {
+            singlecommand = "";
+        } catch (Exception e){
+            stats.setDisplay("N/A");
+        }
+        
+        return stats;
+    }
+}       </pre>
+      </div> <!--class="contenet"-->
+    </div> <!--class="padded"-->
+    <!--Script that allows code samples to expand and collapse -->
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+              this.classList.toggle("active");
+              var content = this.nextElementSibling;
+              if (content.style.display === "block") {
+                  content.style.display = "none";
+              } else {
+                  content.style.display = "block";
+              }
+          });
+      }
+    </script>
+
+    <div class="footer">
+      <p class="quote">"Things are only impossible until they&#39;re not!." - Jean-Luc Picard</p>
+    </div> <!--class="footer"-->
+
+  </body>
+</html>

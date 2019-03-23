@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <!--thanyou.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Thank you!</title>
+  
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="../styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="../togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <link rel="icon" href="../favicon.ico"> <!-- Browser icon -->
+    
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="professional.html">Experience</a></li>
+      <li><a href="educational.html">Education</a></li>
+      <li><a href="showcase.html">Showcase</a></li>
+      <li><a class="active" href="info.html">Info</a></li>
+    </ul>
+  
+    <!--Side Image -->
+    <image class="right" src="images/stefani2.jpg" alt="Stephanie Monson" />
+  
+    <!-- padded div to house page content -->
+    <div class="padded">
+  
+      <!--Links to other profiles -->
+      <h2>Thanks for the input!</h2>
+
+      <form action="info.html">
+    <input type="submit" value="Back to Info Page" />
+</form>
+      
+    </div> <!--class="padded"-->
+    
+    <div class="footer">
+      <p class="quote">"You don&#39;t really know how beautiful a girl is until you meet her, all her beauty is in her personality." - Zac Efron</p>
+    </div> <!--class="footer"-->
+    
+  </body>
+</html>

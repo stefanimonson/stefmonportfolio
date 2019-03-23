@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+  <!--triviality.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Triviality A+ Edition</title>
+  
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="../styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="../togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> <!--Google Prettify Code-->
+    <link rel="icon" href="../favicon.ico"> <!-- Browser icon -->
+	
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../professional.html">Experience</a></li>
+      <li><a href="../educational.html">Education</a></li>
+      <li><a class="active" href="../showcase.html">Showcase</a></li>
+      <li><a href="../info.html">Info</a></li>
+    </ul>
+
+    <!-- padded div to house page content -->
+    <div class="padded">
+	
+      <!--Project Title -->
+      <h2>TRIVIALITY - A+ EDITION</h2>
+      <p>A knock-off Jeopardy game that uses questions related to the CompTIA A+ certification. Created in Unity 2017.4.1f1.</p>
+	
+      <!--Screenshot Gallery -->
+      <div class="gallery-content gallery-display-container no-select">
+        <!--Main Menu Screen-->
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/triviality.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+        <!--Category Board-->  
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/board.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+        <!--Example Question-->
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/question.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+        <!--Incorrect Answer-->
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/incorrectanswer.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+        <!--Correct Answer-->
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/correctanswer.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+        <!--End Game Screen-->
+        <img 
+          class="screenshots" 
+          src="../images/screenshots/win.png" 
+          style="height:400px; margin-left: auto; margin-right: auto">
+         <!--Buttons to control which image is shown-->
+        <button class="btnleft" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="btnright" onclick="plusDivs(1)">&#10095;</button>
+      </div> <!--class="gallery"-->
+      
+      <br /> <br /> <!-- line breaks -->
+      
+      <h2>CODE SAMPLES</h2>
+      <!--Code Samples -->
+      <button class="collapsible">Gameplay.cs</button>
+      <div class="content">
+        <pre class="prettyprint linenums">//Imports
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine;
+using Mono.Data.Sqlite;
+using System.Data;
+using System;
+  
+public class Gameplay : MonoBehaviour {
+/* Handles the game play mechanics of the category board, question and answer screens
+ *  -Derived from MonoBehavior class to handle Unity scripting features
+ *  (Called by EventSystem of the Board scene) */
+  
+  //Variable Declarations
+  public static int pointTotal; //Keeps running point total for endgame
+  int points; //stores point total for last button pressed
+  System.Random rnd = new System.Random (); //random number generation
+  string sqlQuery; //holds SQL query for passing into Query function
+  int questionID; //stores ID of current question for answer parsing
+  int questioncount = 0; //stores number of questions answered for endgame checking
+  string guess; //stores current guess for check against query result
+  
+  void Start () {
+  /* Initializes the game
+   * Screen handling uses groups of objects to display question, answer and board
+   * positioning them into the FOV of the camera. This order to minimizes the need for 
+   * communication between scenes and remembering which buttons have been deactivated
+   * between repetitive reloads of each screen
+   *   (Called by loading the "Game" scene */
+    
+    //Make sure Question and Answer screens are not displayed
+    GameObject.FindGameObjectWithTag ("Question")
+      .transform.position = new Vector3 (-1000.0f, -1000f, 0.0f);
+    GameObject.FindGameObjectWithTag ("Answer")
+      .transform.position = new Vector3 (-1000.0f, -1000f, 0.0f);
+  
+    //set points and point total to zero
+    points = 0;
+    pointTotal = 0;
+  }//end Start()
+  
+  string Query (string sqlQuery, bool q) {
+  /* Queries the proper table for questions and answers
+   *    -string sqlQuery - query built by calling function
+   *    -bool q - true if query is for a question, false if query is for an answer
+   *    -return result - text to be displayed on the next screen
+   *    (Called from other functions inside of Gameplay.cs) */
+  
+    string result;
+    //Path to SQLite3 database
+    string conn = "URI=file:" + Application.dataPath + "/DB/questions.db";
+  
+    //Creates new Sqlite connection
+    IDbConnection dbconn = (IDbConnection)new SqliteConnection (conn);
+    //Opens a connection to the database
+    dbconn.Open ();
+  
+    //Build the sql command using passed in string sqlQuery
+    IDbCommand dbcmd = dbconn.CreateCommand ();
+    dbcmd.CommandText = sqlQuery;
+  
+    //Execute query
+    IDataReader reader = dbcmd.ExecuteReader ();
+  
+    //List objects that hold results of the query
+    List<int> qID = new List<int> ();
+    List<string> row = new List<string> ();
+  
+    //Reads each line of response and stores them in list objects
+    while (reader.Read ()) {
+      qID.Add (reader.GetInt32 (0));
+      row.Add (reader.GetString (1));
+    } //end while (reader.Read)
+  
+    //If we are querying for a question, generate a random number from the results and 
+    //return the corresponding question
+    //This allows for each category button to have multiple possible questions so it is 
+    //not always the same game
+    if (q) {
+      int i = rnd.Next (0, row.Count);
+  
+      questionID = qID [i];//Remember question ID for later answer query
+      result = row [i];
+    } //end if (q)
+  
+    //If we are querying for an answer, check the guessed answer with all possible results
+    //associated with question ID
+      //This allows for multiple acceptible answers to each question based on spelling or 
+      //grammatical additions
+    else {
+      //Default result is incorrect and displays first answer found in query as correct
+      result = "Incorrect!\n\nThe Answer was:\n" + row [0];
+  
+      //for loop changes result to true if guess matches any of the returned answers
+      for (int i = 0; i < row.Count; i++) {
+        //match against .ToLower() so as not to discriminate correctness based on 
+        //capitalization
+        if (row [i].ToLower () == guess.ToLower ()) { 
+          pointTotal += points;
+          result = "For $"
+          + points
+          + " you are correct!\n\nTotal:\n $"
+          + pointTotal; //show current point total
+        } //end if (row[i] == guess)
+  
+      } //end for (i < row.Count) {
+    } //end else
+  
+    //Close, dispose and clear reader and database connection
+    reader.Close ();
+    reader = null;
+    dbcmd.Dispose ();
+    dbcmd = null;
+    dbconn.Close ();
+    dbconn = null;
+  
+    return result;
+  } //end Query()
+  
+  public void ButtonPressed (UnityEngine.UI.Button btnPressed) {
+  /* Disables the button that was pressed and queries the database for a question matching 
+   * its category and difficulty
+   *   -Button btnPressed - the button that was pressed holds the category and difficulty 
+   *    information in a "tag"
+   *   (Called by button press on category board) */
+  
+    //Disable button pressed and clear text field
+    btnPressed.interactable = false;
+    btnPressed.GetComponentInChildren<UnityEngine.UI.Text> ().text = "";
+  
+    //Increase question count (for end-game initiation)
+    questioncount += 1;
+  
+    //Build query string
+    sqlQuery = "Select Q_ID, question from questions where CAT_ID = "
+    + btnPressed.name.Substring (0, 1)
+    + " AND Difficulty = "
+    + btnPressed.name.Substring (2, 1) + ";";
+  
+    points = int.Parse (btnPressed.name.Substring (2, 1)) * 100;
+  
+    //Run query
+    string question = Query (sqlQuery, true);
+  
+    //Set Question Text to query result
+    GameObject.FindGameObjectWithTag ("QText")
+      .GetComponentInChildren<UnityEngine.UI.Text> ().text = question;
+  } //end ButtonPressed()
+  
+  public void CheckAnswer (UnityEngine.UI.InputField guessbox) {
+  /* Queries the database for the answer to the current question and parses it against the 
+   * guess entered
+   *   -InputField guessbox - the field containing the players guess
+   *   (Called by button press on Question screen) */
+  
+    //Sets guess for parse
+    guess = guessbox.text;
+    //resets guessbox text so it will say "Enter answer here..." again instead of the last
+    //answer entered
+    guessbox.text = "";
+  
+    //Build query string
+    sqlQuery = "Select Q_ID, answer from answers where Q_ID = " + questionID + ";";
+  
+    //Run query
+    string answer = Query (sqlQuery, false);
+  
+    //Set Answer Text to Query result
+    GameObject.FindGameObjectWithTag ("AText")
+      .GetComponentInChildren<UnityEngine.UI.Text> ().text = answer;
+  } //end CheckAnswer()
+  
+  public void CheckEndGame () {
+  /* Function "CheckEndGame" checks the questioncount to determine whether or not all of
+   * the questions have been answered
+   *   (Called by button press on Answer Screen) */
+  
+    //If player has answered all 20 questions, load the EndGame scene
+    if (questioncount == 20) {
+      SceneManager.LoadScene ("EndGame");
+    } //end if (questiocount == 20)
+  } //end CheckEndGame ()
+} //end GamePlay class</pre>
+      </div> <!--class="content"-->
+      
+      
+      <button class="collapsible">Questions Table (Hardware Questions)</button>
+      <div class="content">
+        <table id="db">
+        <tr>
+          <th>Q_ID</th><th>Question</th><th>CAT_ID</th><th>Difficulty</th>
+        </tr>
+                <tr>
+          <td>56</td>
+          <td>What device allows multiple PCs to share a monitor?</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>57</td>
+          <td>What connection type is the best to allow a group of users to be able to access the same printer?</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>58</td>
+          <td>What is the maximum capacity of a CD-R?</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>59</td>
+          <td>If you want to utilize your motherboard&#39;s dual-channel RAM feature, what type of RAM do you need to use?</td>
+          <td>5</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>What connector would you use to connect a video card to a power supply</td>
+          <td>5</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>61</td>
+          <td>What display connector has 15-pins?</td>
+          <td>5</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>62</td>
+          <td>What type of printer uses an imaging drum?</td>
+          <td>5</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>63</td>
+          <td>What type of printer would have a maintenance kit that includes a fuser, transfer roller and pickup rollers?</td>
+          <td>5</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>64</td>
+          <td>What type of drive is the most resistant to physical shock?</td>
+          <td>5</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>65</td>
+          <td>What level of RAID increases drive size and access speed without providing any type of data redundancy?</td>
+          <td>5</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>66</td>
+          <td>What type of connector would you use on a CAT5 cable?</td>
+          <td>5</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>67</td>
+          <td>When setting up an LCD monitor, which resolution mode, by definition, provides the best visual quality?</td>
+          <td>5</td>
+          <td>4</td>
+        </tr>
+
+        </table>
+      </div> <!--class="content"-->
+      
+            <button class="collapsible">Answers Table (Hardware Questions)</button>
+      <div class="content">
+        <table id="db">
+        <tr>
+          <th>Q_ID</th><th>Answer</th>
+        </tr>
+        <tr>
+          <td>56</td>
+          <td>KVM Switch</td>
+        </tr>
+        <tr>
+          <td>56</td>
+          <td>KVM</td>
+        </tr>
+        <tr>
+          <td>56</td>
+          <td>keyboard video mouse switch</td>
+        </tr>
+        <tr>
+          <td>57</td>
+          <td>Ethernet</td>
+        </tr>
+        <tr>
+          <td>58</td>
+          <td>700 MB</td>
+        </tr>
+        <tr>
+          <td>58</td>
+          <td>700mb</td>
+        </tr>
+        <tr>
+          <td>59</td>
+          <td>DDR</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>PCIe 6-pin</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>pcie 6 pin</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>6-pin pcie</td>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td>6 pin pcie</td>
+        </tr>
+        <tr>
+          <td>61</td>
+          <td>VGA</td>
+        </tr>
+        <tr>
+          <td>62</td>
+          <td>Inkjet</td>
+        </tr>
+        <tr>
+          <td>62</td>
+          <td>an inkjet printer</td>
+        </tr>
+        <tr>
+          <td>62</td>
+          <td>inkjet printer</td>
+        </tr>
+        <tr>
+          <td>63</td>
+          <td>Laser</td>
+        </tr>
+        <tr>
+          <td>63</td>
+          <td>laser printer</td>
+        </tr>
+        <tr>
+          <td>63</td>
+          <td>a laser printer</td>
+        </tr>
+        <tr>
+          <td>64</td>
+          <td>Solid State Drive</td>
+        </tr>
+        <tr>
+          <td>64</td>
+          <td>solid state disk</td>
+        </tr>
+        <tr>
+          <td>64</td>
+          <td>ssd</td>
+        </tr>
+        <tr>
+          <td>65</td>
+          <td>RAID 0</td>
+        </tr>
+        <tr>
+          <td>65</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>66</td>
+          <td>RJ-45</td>
+        </tr>
+        <tr>
+          <td>66</td>
+          <td>RJ45</td>
+        </tr>
+        <tr>
+          <td>66</td>
+          <td>RJ 45</td>
+        </tr>
+        <tr>
+          <td>67</td>
+          <td>Native</td>
+        </tr>
+
+        </table>
+      </div> <!--class="content"-->
+      
+    </div> <!--class="padded"-->
+	
+    <!-- Script that controls Gallery photos -->
+    <script>
+      var slideIndex = 1;
+      showDivs(slideIndex);
+
+      function plusDivs(n) {
+        showDivs(slideIndex += n);
+      }
+
+      function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("screenshots");
+        if (n > x.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+           x[i].style.display = "none";  
+        }
+        x[slideIndex-1].style.display = "block";  
+      }
+    </script>
+
+    <!--Script that allows code samples to expand and collapse -->
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+              this.classList.toggle("active");
+              var content = this.nextElementSibling;
+              if (content.style.display === "block") {
+                  content.style.display = "none";
+              } else {
+                  content.style.display = "block";
+              }
+          });
+      }
+    </script>
+    
+    <div class="footer">
+      <p class="quote">"Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young." - Henry Ford</p>
+    </div> <!--class="footer"-->
+    
+  </body>
+</html>

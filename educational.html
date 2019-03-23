@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+  <!--educational.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Education</title>
+    <meta property="og:title" content="Stef Monson - Software Developer" />
+    <meta property="og:type" content="Portfolio" />
+    <meta property="og:url" content="http://stefanimonson.info/index.html" />
+    <meta property="og:image" content="https://imgur.com/KhjdUWO.png" />
+  
+
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <link rel="icon" href="favicon.ico"> <!-- Browser icon -->
+    
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="professional.html">Experience</a></li>
+      <li><a class="active" href="educational.html">Education</a></li>
+      <li><a href="showcase.html">Showcase</a></li>
+      <li><a href="info.html">Info</a></li>
+    </ul>
+      
+    <!-- div to add padding -->
+    <div class="padded">
+
+       <!-- Schools -->
+      <h2>EDUCATION</h2>
+
+	  <!--expbox divs with purple and grey backgrounds-->
+      <div class="expbox grey">
+        <p class="expdates">May 2010</p>
+        <p class="exploc">CHIPPEWA VALLEY TECHNICAL COLLEGE &#8226; Eau Claire, WI</p>		
+        <p><span class="exptitle">Associate Degree</span>
+		<span class="expdept">(Information Technology: Programmer/Analyst)</span></p>
+        <p class="expdesc">During my time at Chippewa Valley Technical College I was educated in the use of several IDEs and programming languages. My degree was specifically aimed towards a Programmer/Analyst field, and provided a great deal of hands-on experience.</p>
+        <p class="expnotable">Notable Courses:</p>
+        <p class="expdesc">CISCO I & II &#8226; Database 1 &#8226; HTML with CSS &#8226; Information Architecture &#8226; Java I & II &#8226; Javascript &#8226; PHP &#8226; User Interface Design &#8226; VB.Net &#8226; VB.Net with ASP &#8226; XML </p>
+      </div> <!--class="expbox grey"-->
+
+      <br /> <!--line break-->
+      <div class="expbox purple">
+        <p class="expdates">2018</p>
+        <p class="exploc">UDEMY &#8226; udemy.com</p>		
+        <p><span class="exptitle">Online Courses</span>
+        <span class="expdept">(Development-Programming Languages)</span></p>
+        <p class="expdesc">I have been using Udemy's online video tutorials as a tool to not only help overcome obstacles in projects, but to understand them as well. They have also been great for refreshing my knowledge and keeping me up-to-date with the best programming practices.</p>
+        <p class="expnotable">Completed Courses:</p>
+		<p class="expdesc">Java Swing(GUI) Programming - <a href="http://ude.my/UC-KRQSZ5UE">Certificate obtained 01/12/18</a></p>
+        <p class="expdesc">Java Multithreading - <a href="http://ude.my/UC-R5TUQXY0">Certificate obtained 01/13/18 </a></p>
+      </div> <!--class="expbox purple"-->
+    </div> <!--class="padded"-->
+
+    <div class="footer">
+      <p class="quote">"Don't learn to do, but learn in doing." - Samuel Butler</p>
+    </div> <!--class="footer"-->
+
+  </body>
+</html> 

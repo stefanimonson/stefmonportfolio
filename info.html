@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <!--info.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Contact Information</title>
+  
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <link rel="icon" href="favicon.ico"> <!-- Browser icon -->
+    
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="professional.html">Experience</a></li>
+      <li><a href="educational.html">Education</a></li>
+      <li><a href="showcase.html">Showcase</a></li>
+      <li><a class="active" href="info.html">Info</a></li>
+    </ul>
+  
+    <!--Side Image -->
+    <image class="right" src="images/stefani2.jpg" alt="Stephanie Monson" />
+  
+    <!-- padded div to house page content -->
+    <div class="padded">
+  
+      <!--Links to other profiles -->
+      <h2>EXTERNAL LINKS</h2>
+        <ul class="links">
+        <!--<li><a href="https://github.com/stefanimonson"> GitHub</a></li>-->
+        <li><a href="https://www.facebook.com/stefani.terrell"> Facebook</a></li>
+        <li><a href="https://www.linkedin.com/in/stefmonson/"> LinkedIn</a></li>
+      </ul>
+  
+      <!--Contact Information -->
+      <h2>E-MAIL ADRESSES</h2>
+      <ul class="links">
+        <li><a href="mailto:stefanimonson@gmail.com?Subject=Hey Stef, I saw your portfolio and wanted to reach out to you!" target="_top">stefanimonson@gmail.com</a></li>
+        <li><a href="mailto:stefani@stefanimonson.info?Subject=Hey Stef, I saw your portfolio and wanted to reach out to you!" target="_top">stefani@stefanimonson.info</a></li>
+      </ul>
+
+      <!--Form for leaving a message -->
+      <h2>LEAVE A MESSAGE:</h2>
+      <p>Feel free to leave a comment. If you would like me to get back to you, be sure to leave your name and e-mail address and I will get back to you as soon as possible!</p>
+      <br /> <!-- line break -->
+
+      <!--Uses emailmsg.php to send the comment as an email to stefani@stefanimonson.info-->
+      <form method="post" name="leavemessage" action="emailmsg.php" >
+        <label for="name">NAME:</label> 
+        <input type="text" name="name" /> 
+        
+        <br /> <br /> <!-- line breaks -->
+        
+        <label for="_replyto">E-MAIL: </label>
+        <input type="text" name="_replyto" /> 
+        
+        <br /><br /> <!-- line breaks -->
+        
+        <textarea rows="4" cols="50" name="message" onclick="this.focus();this.select()" onfocus="this.select()">Enter message...</textarea>
+        
+        <br /> <!-- line break -->
+        
+        <input type="submit" name="submit" value="SUBMIT" />
+      </form>
+      
+    </div> <!--class="padded"-->
+    
+    <div class="footer">
+      <p class="quote">"You don&#39;t really know how beautiful a girl is until you meet her, all her beauty is in her personality." - Zac Efron</p>
+    </div> <!--class="footer"-->
+    
+  </body>
+</html>

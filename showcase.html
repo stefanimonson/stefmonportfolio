@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <!--showcase.html-->
+  <head>
+    <!-- Title in Browser Window -->
+    <title>Stef Monson - Project Showcase</title>
+  
+    <!--Items referenced in page -->
+    <link rel="stylesheet" href="styles.css"> <!-- CSS Stylesheet -->
+    <script type="text/javascript" src="togglenav.js"></script> <!-- Navigation Javascript Script-->
+    <link rel="icon" href="favicon.ico"> <!-- Browser icon -->
+	
+  </head>
+  
+  <body onclick="togglenav(event)" onresize="togglenavresize()">
+
+    <!-- Mobile Header -->
+    <div class="topbar no-select">
+        <h1><span class="headleft">STEF MONSON</span><span class="headright"> <button id="burgerbutton">&#9776;</button></span></h1>
+    </div> <!--class="topbar"-->
+
+    <!-- Mobile Navigation Menu -->
+    <ul class="topnav no-select" id="menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../professional.html">Experience</a></li>
+      <li><a href="../educational.html">Education</a></li>
+      <li><a class="active" href="../showcase.html">Showcase</a></li>
+      <li><a href="../info.html">Info</a></li>
+    </ul>
+	
+    <!-- padded div to house page content -->
+    <div class="padded">
+    <h2> PROJECT SHOWCASE</h2>
+
+    <!--disable selecting of the gallery -->
+    <div class="no-select">
+    
+      <div class="responsivegal">
+        <div class="gallery">
+          <a target="_self" href="projects/triviality.html">
+            <img src="images/screenshots/triviality.png" alt="Triviality" width="560px" height="420px" />
+          </a>
+          <div class="desc">Triviality - A+ Edition</div>
+        </div> <!--class="gallery"-->
+      </div> <!--class="responsivegal"-->
+
+      <div class="responsivegal">
+        <div class="gallery">
+          <a target="_self" href="projects/discovery.html">
+            <img src="images/screenshots/discovery.png" alt="Discovery Tool for Linux" width="560px" height="420px" />
+          </a>
+          <div class="desc">Discovery Tool for Linux</div>
+        </div> <!--class="gallery"-->
+      </div> <!--class="responsivegal"-->
+<!--
+      
+      <div class="responsivegal">
+        <div class="gallery">
+          <a target="_self" href="projects/FUTURE-PROJECT.html">
+            <img src="images/screenshots/FUTURE-PROJECT.png" alt="FUTURE-PROJECT" width="560px" height="420px" />
+          </a>
+          <div class="desc">FUTURE-PROJECT</div>
+        </div> <!--class="gallery"--
+      </div> <!--class="responsivegal"--
+-->
+      <div class="clearfix"></div>
+    </div> <!--class="no-select"-->
+  </div> <!--class="padded"-->
+  
+  <div class="footer">
+    <p class="quote">"The more I want to get something done, the less I call it work." - Aristotle</p>
+  </div> <!--class="footer"-->
+  
+  </body>
+</html>

@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,600');
+
+/* Vendor Prefixes so proprietary css propeties display correctly across browsers
+  -moz   = Firefox
+  -o     = Opera
+  -webkit = Chrome and Safari
+  -ms     = Internet Explorer  */
+
+
+/*Universal Styles*/
+html {
+margin: 0;
+height: 100%;
+background: linear-gradient(#bdbdff, #f1f1ff 20%, #ffffff 30%, #f1f1ff 85%, #bdbdff 95%);
+background-attachment: fixed;
+}
+body {
+    margin: 100px 0px 50px 0px;
+    font-family: calibri, arial, sans-serif;
+    font-size: 13pt;
+/*    background-color:#ccccff;*/
+}
+
+h1 {
+    text-align: center;
+    font-family:  oswald, sans-serif;
+    font-size:28pt;
+    font-weight:600;
+    text-shadow: 1px 1px 2px #9999ff, 1px 1px 2px white, 2px 2px 4px #ccccff;
+}
+	
+h2, h3 {
+    font-family: oswald,"Arial Black", sans-serif;
+    font-weight: 600;
+}
+
+h2 {
+    font-size:18pt;
+}
+
+h3 {
+    font-size: 14pt;
+}
+
+
+/*Padding*/
+.padded {
+    padding:15px;
+}
+
+/*Right-Aligned Images*/
+img.right {
+    max-height: 500px;
+    max-width: 50%;
+    float:right;
+    padding: 3px 0px 15px 50px;
+}
+
+button {
+    color:#fff;
+    border: none;
+    display:inline-block;
+    padding:25px 16px;
+    vertical-align:middle;
+    overflow:hidden;
+    font-weight:bold;
+    font-size: 20px;
+    text-align:center;   
+}
+
+button:hover {
+    cursor: pointer;
+
+      -moz-box-shadow: 1px 1px 1px #6600cc, 1px 1px 1px #9999ff, 5px 10px 10px #666699 inset;
+      -webkit-box-shadow: 1px 1px 1px #6600cc, 1px 1px 1px #9999ff, 5px 10px 10px #666699 inset;
+    box-shadow: 1px 1px 1px #6600cc, 1px 1px 1px #9999ff, 5px 10px 10px #666699 inset;
+}
+
+button:focus {
+    outline:none;
+}
+
+
+/*Title Bar*/
+.topbar {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100px;
+    background-image: url("images/banner.png");
+    background-repeat: repeat;
+    
+      -moz-box-shadow: 0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+      -webkit-box-shadow: 0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+    box-shadow: 0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+}
+
+.headleft {
+    float:none;
+    width:85%;
+}
+
+.headright {
+    float:right;
+    width:15%;
+}
+
+.no-select {
+     /*Disables selection of items in content class*/
+      -webkit-user-select:none; /*Chrome, Safari, and Opera*/
+      -moz-user-select:none; /*Firefox*/
+      -ms-user-select:none;/*IE*/
+    user-select:none; /*Default*/
+}
+
+.footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     height:50px;
+     display:table;
+     text-align: center;
+     background-image: url("images/banner.png");
+     background-repeat: repeat;
+
+      -moz-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+      -webkit-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+      box-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+}
+
+p.quote {
+    font-family:oswald,sans-serif;
+    font-weight:400;
+    color: white;
+    height:50px;
+    line-height: 1.1em;
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+    text-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+}
+
+/*Navigation Bar*/
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+      -moz-box-shadow:  1px 1px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff; 
+      -webkit-box-shadow:  1px 1px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff; 
+    box-shadow: 1px 1px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+}
+
+ul.topnav li {
+    float: left;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a.active {
+    background-color: #9999ff;
+
+      -moz-box-shadow: 5px 10px 20px #6633cc inset;
+      -webkit-box-shadow: 5px 10px 20px #6633cc inset;
+    box-shadow: 5px 10px 20px #6633cc inset;
+}
+
+ul.topnav li a:hover:not(.active) {
+    background-color: #111;
+    
+      -moz-box-shadow: 5px 10px 20px #666699 inset;
+      -webkit-box-shadow: 5px 10px 20px #666699 inset;
+    box-shadow: 5px 10px 20px #666699 inset;
+}
+
+/*Links*/
+a:link{
+    color:#9966ff;
+    text-decoration: none; 
+}
+
+a:visited {
+    color:#663399;
+    text-decoration: none; 
+}
+
+a:hover {
+    color:#9999ff;
+    text-decoration:underline;
+}
+
+/****************
+ * Desktop Only *
+ ****************/
+@media only screen and (min-width: 1080px) {
+  #burgerbutton {
+      display:none;
+  }
+    #menu {
+    display:block;
+  }
+}/*End Desktop-Only CSS*/
+
+/****************
+ * Mobile only  *
+ ****************/
+@media only screen and (max-width: 1080px) {
+  ul.topnav li {
+      float: none;
+
+       -moz-box-shadow: .25px .25px .25px #ccccff, 1px 1px 1px #9966ff;
+       -webkit-box-shadow: .25px .25px .25px #ccccff, 1px 1px 1px #9966ff;
+      box-shadow:  .25px .25px .25px #ccccff, 1px 1px 1px #9966ff;
+  }
+
+  #burgerbutton{
+      background-color:transparent;
+      border:none;
+      display:inline-block;
+      padding:8px 16px;
+      text-decoration:none;
+      text-align:center;
+      cursor:pointer;
+      white-space:nowrap;
+      font-size:24px!important;
+      font-weight:bolder;
+      font-family: "Arial Black", sans-serif;
+      color:#000;
+      text-shadow: 1px 1px 1px black, 2px 2px 2px #9999ff, 2px 2px 5px white;
+
+        -moz-box-shadow: 0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+        -webkit-box-shadow:0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff; 
+      box-shadow: 0px 0px 2px #333, 1px 1px 2px #6600cc, 2px 2px 5px #9999ff;
+  }
+  
+  #menu {
+    display:none;
+  }
+} /*End Mobile-Only CSS*/
+
+/*professional.html and educational.html - Experience Styles*/
+
+.exploc{
+	width:70%;
+	float: none;
+	margin-top:10px;
+	font-family: oswald, sans-serif;
+	font-weight:600;
+	font-size: 18px;
+}
+.exptitle{	
+    font-size: 18px;
+    font-family: oswald, sans-serif;
+    font-weight:400;
+}
+.expdept{
+    width:100%;
+    float: none;
+    font-weight:bold;
+    font-size: 16px;
+	font-style: italic;	
+}
+
+.expdates, .toplink {
+    font-size: 18px;
+    text-align:right;
+    font-family: oswald, sans-serif;
+    font-weight:400;
+    margin-top: 10px;
+}
+.toplink {
+    min-width: 140px;
+    vertical-align: middle;
+    text-align: right;
+    width:15%;
+}
+
+.expdates{
+    width:30%;
+    min-width: 100px;
+    float:right; 
+
+}
+
+.expnotable{
+    font-family: oswald, sans-serif;
+    font-weight:600;
+}
+
+.expdesc, .expnotable {
+    margin:10px;
+    float:none;
+}
+
+.expbox {
+    padding:15px;
+    border-radius: 10px;
+    width: 100%;
+    height:100%;
+}
+
+.grey {
+    background: #f0f0f069;
+    border:2px solid #777;
+}
+
+.purple {
+    background: #ccccff69;
+    border: 2px solid #6600cc;
+}
+
+/* showcase.html - Showcase Styles */
+div.gallery {
+    border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsivegal {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+}
+
+/*Larger mobile screens*/
+@media only screen and (max-width: 1080px) {
+    .responsivegal {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+/*Smaller mobile screens*/
+@media only screen and (max-width: 600px) {
+    .responsivegal {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Showcase Project Gallery styles */
+.gallery-content {
+    max-height:400px;
+    margin:auto;
+}
+
+.gallery-display-container {
+    position:relative;
+}
+
+/* Gallery Buttons */
+
+.btnleft, .btnright {
+    position:absolute;
+    top:50%;
+    background-image: url("images/banner.png");
+    text-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+    
+      -moz-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+      -webkit-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+    box-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+    
+    /*Positions buttons a little higher so they look more centered*/
+      -moz-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
+      -o-transform:translateY(-50%);
+      -webkit-transform:translateY(-50%);
+    transform:translateY(-50%);
+
+}
+
+.btnleft:hover, .btnright:hover {
+    background-image: url("images/blackbanner.png");
+    text-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+    color:white;
+}
+
+.btnleft {
+    left:0%;
+}
+
+.btnright {
+    right:0%;
+}
+
+/*Styles for Collapsible Code boxes- */
+pre {
+    overflow: auto;
+    background-color:white;
+    font-family: monospace, monospace;
+    display: block;
+    white-space: pre-wrap   
+}
+
+.collapsible {
+    background-color:#333!important;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+
+      -moz-box-shadow:   1px 1px 1px #bb88ff inset, 1px 1px 2px #9999ff inset;
+      -webkit-box-shadow: 1px 1px 1px #bb88ff inset, 1px 1px 2px #9999ff inset;
+    box-shadow: 1px 1px 1px #bb88ff inset, 1px 1px 2px #9999ff inset;
+}
+
+.collapsible:hover {
+    background-color:#9999ff!important;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.collapsible.active:after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color:#f1f1f1;
+    font-size:9pt;
+}
+
+/*Tables inside of collapsible boxes*/
+
+#db {
+    border-collapse: collapse;
+    width: 100%;
+    background-color:white;
+}
+
+#db td, #db th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#db tr:nth-child(even) {
+    background-color: white;
+}
+
+#db tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+#db th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #9999ff;
+    color: white;
+}
+
+/*info.html - Leave a Message Form Styles*/
+form{
+
+    width:90%;
+    min-width:300px;
+}
+
+label {
+    display: inline-block;
+    vertical-align: baseline;
+    line-height:150%;
+    width: 65px;
+    color: #2D2D2D;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+textarea {
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    float:center;
+}
+
+input[type="text"]{ 
+	padding: 5px; 
+	display: inline-block;
+}
+
+input[type=submit], .btnback {
+    background-image: url("images/banner.png");
+    text-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    
+      -moz-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+      -webkit-box-shadow:  1px 1px 1px #6600cc, -1px -1px -1px #333;
+    box-shadow: 1px 1px 1px #6600cc, -1px -1px 1px #333;
+}
+
+/*Unity Styles*/
+.webgl-content * {border: 0; margin: 0; padding: 0}
+.webgl-content {position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
+
+.webgl-content .logo, .progress {position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
+.webgl-content .logo {background: url('TemplateData/progressLogo.Light.png') no-repeat center / contain; width: 154px; height: 130px;}
+.webgl-content .progress {height: 18px; width: 141px; margin-top: 90px;}
+.webgl-content .progress .empty {background: url('TemplateData/progressEmpty.Light.png') no-repeat right / cover; float: right; width: 100%; height: 100%; display: inline-block;}
+.webgl-content .progress .full {background: url('TemplateData/progressFull.Light.png') no-repeat left / cover; float: left; width: 0%; height: 100%; display: inline-block;}
+
+.webgl-content .logo.Dark {background-image: url('TemplateData/progressLogo.Dark.png');}
+.webgl-content .progress.Dark .empty {background-image: url('TemplateData/progressEmpty.Dark.png');}
+.webgl-content .progress.Dark .full {background-image: url('TemplateData/progressFull.Dark.png');}
+
+.webgl-content .footer {margin-top: 5px; height: 38px; line-height: 38px; font-family: Helvetica, Verdana, Arial, sans-serif; font-size: 18px;} 
+.webgl-content .footer .webgl-logo, .title, .fullscreen {height: 100%; display: inline-block; background: transparent center no-repeat;} 
+.webgl-content .footer .webgl-logo {background-image: url('TemplateData/webgl-logo.png'); width: 204px; float: left;}
+.webgl-content .footer .title {margin-right: 10px; float: right;}
+.webgl-content .footer .fullscreen {background-image: url('TemplateData/fullscreen.png'); width: 38px; float: right;}
